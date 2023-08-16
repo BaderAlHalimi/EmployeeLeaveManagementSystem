@@ -32,6 +32,7 @@
                                 <th>created_at</th>
                                 <th>status</th>
                                 <th>number of days</th>
+                                <th>reason</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -41,22 +42,39 @@
                                     <td>{{ $lvs->name }}</td>
                                     <td>{{ $lvs->leave_name }}</td>
                                     <td>{{ $lvs->pivot->created_at }}</td>
-                                    <td>{{ $lvs->pivot->status }}</td>
+                                    <td><span @class(['badge','bg-danger'=>$lvs->pivot->status=="canceled",'bg-success'=>$lvs->pivot->status=="approved",'bg-secondary'=>$lvs->pivot->status=="pending"])>{{ $lvs->pivot->status }}</span></td>
                                     <td>{{ $lvs->pivot->number_days }}</td>
+                                    <td>{{ $lvs->pivot->reason }}</td>
                                     <td>
                                         @if ($lvs->pivot->status == 'pending')
                                             <a href="{{ route('accept', ['id' => $lvs->pivot->id]) }}">
                                                 <i class="fa fa-check text-success mx-2"></i>
                                             </a>
-                                            <a href="{{ route('cancele', ['id' => $lvs->pivot->id]) }}">
+                                            <button style="background: none;border:none;"
+                                                onclick="show('{{ $lvs->pivot->id }}')">
                                                 <i class="fa fa-ban text-danger mx-2"></i>
-                                            </a>
+                                            </button>
+                                            <form style="display: none;" id="{{ $lvs->pivot->id }}"
+                                                action="{{ route('cancele', ['id' => $lvs->pivot->id]) }}" method="POST"
+                                                class="text-center">
+                                                @csrf
+                                                <textarea name="reason" id="reason" cols="30" rows="3"></textarea><br>
+                                                <button type="submit" class="badge bg-success">submit</button>
+                                            </form>
                                         @endif
                                     </td>
 
                                 </tr>
                             @endforeach
-
+                            <script>
+                                function show(id) {
+                                    if (document.getElementById(id).style.display == "block") {
+                                        document.getElementById(id).style.display = "none";
+                                    } else {
+                                        document.getElementById(id).style.display = "block";
+                                    }
+                                }
+                            </script>
                             {{-- <tr>
                                 <td>153424</td>
                                 <td>Jane Doe</td>

@@ -40,13 +40,13 @@ Route::get('dashboard', function(){
 
 Route::get('admin/leaves/requests',[UserLeaveController::class,'index'])->name('allLeaves');
 Route::get('admin/leaves/{id}/accept',[UserLeaveController::class,'accept'])->name('accept');
-Route::get('admin/leaves/{id}/cancele',[UserLeaveController::class,'cancele'])->name('cancele');
+Route::post('admin/leaves/{id}/cancele',[UserLeaveController::class,'cancele'])->name('cancele');
 Route::get('admin/leaves/accepted',[UserLeaveController::class,'accepted'])->name('accepted');
 Route::get('admin/leaves/pending',[UserLeaveController::class,'pending'])->name('pending');
 Route::get('admin/leaves/canceled',[UserLeaveController::class,'canceled'])->name('canceled');
 Route::resource('admin/leaves',LeaveController::class)->middleware('auth');
 Route::resource('admin', UserController::class);
-Route::get('admin',[UserController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('admin',[UserController::class,'index'])->middleware(['auth', 'verified','auth.admin'])->name('dashboard');
 Route::get('employee',[EmployeeController::class,'index'])->name('employee.index'); 
 Route::get('employee/leave/request',[EmployeeController::class,'create'])->name('employee.leave.create'); 
 Route::post('employee/leave/request',[EmployeeController::class,'store'])->name('employee.leave.store'); 

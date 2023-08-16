@@ -30,10 +30,10 @@ class UserLeaveController extends Controller
         $tmp->update(['status' => 'approved']);
         return redirect()->back()->with('success', 'accepted');
     }
-    public function cancele($id)
+    public function cancele(Request $request,$id)
     {
         $tmp = UserLeave::where('id', $id)->first();
-        $tmp->update(['status' => 'canceled']);
+        $tmp->update(['status' => 'canceled','reason'=>$request->reason]);
         return redirect()->back()->with('success', 'canceled');
     }
     public function accepted()

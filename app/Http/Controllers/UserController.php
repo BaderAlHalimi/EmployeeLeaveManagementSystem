@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     function __construct()
     {
-        $this->middleware(['auth', 'verified', 'auth.admin']);
+        $this->middleware(['auth', 'verified','auth.admin']);
     }
     /**
      * Display a listing of the resource.
@@ -18,7 +18,6 @@ class UserController extends Controller
     public function index()
     {
         //
-        $this->isAdmin();
         $Employees = count(Auth::user()->employees);
         $Leaves = count(Auth::user()->leaves);
         $num1 = 0;
@@ -46,7 +45,6 @@ class UserController extends Controller
     public function create()
     {
         //
-        $this->isAdmin();
         return view('employee.create');
     }
 
@@ -56,7 +54,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $this->isAdmin();
         $request->validate([
             'name'      => 'required',
             'gender'    => 'required|in:male,female',
@@ -77,7 +74,6 @@ class UserController extends Controller
     public function show(string $id)
     {
         //
-        $this->isAdmin();
     }
 
     /**
@@ -86,7 +82,6 @@ class UserController extends Controller
     public function edit($admin)
     {
         //
-        $this->isAdmin();
         $employee = User::where('id', $admin)->first(); //select * from users where id = 8
         // dd($employee);
         if ($employee->admin == Auth::id()) {
@@ -102,7 +97,6 @@ class UserController extends Controller
     public function update(Request $request, $admin)
     {
         //
-        $this->isAdmin();
         $request->validate([
             'name'      => 'required',
             'gender'    => 'required|in:male,female',
@@ -126,13 +120,11 @@ class UserController extends Controller
     public function destroy($admin)
     {
         //
-        $this->isAdmin();
         User::destroy($admin);
         return redirect()->route('admin.manage');
     }
     public function manage()
     {
-        $this->isAdmin();
         $employees = Auth::user()->employees;
         return view('employee.manage')->with('employees', $employees);
     }

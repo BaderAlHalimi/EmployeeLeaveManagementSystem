@@ -18,7 +18,7 @@ class admin
     {
         if (auth()->check()) {
             $user = auth()->user();
-            if (!$user->admin) {
+            if (!$user->manager) {
                 return $next($request);
             }
         }

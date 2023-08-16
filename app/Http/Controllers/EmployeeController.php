@@ -11,7 +11,23 @@ class EmployeeController extends Controller
     //
     public function index()
     {
-        return view('employee.public.index');
+        $Leaves = count(Auth::user()->empLeaves);
+        $num1 = 0;
+        $num2 = 0;
+        $num3 = 0;
+        foreach (Auth::user()->manager->Leaves as $leave) {
+            $num1 += count($leave->approved()->wherePivot('user_id',Auth::id())->get());
+            $num2 += count($leave->pending()->wherePivot('user_id',Auth::id())->get());
+            $num3 += count($leave->canceled()->wherePivot('user_id',Auth::id())->get());
+        }
+        $Approved = $num1;
+        $Pending = $num2;
+        $Canceled = $num3;
+        return view('employee.public.index')
+            ->with('Approved', $Approved)
+            ->with('Leaves', $Leaves)
+            ->with('Pending', $Pending)
+            ->with('Canceled',$Canceled);
     }
     public function create()
     {

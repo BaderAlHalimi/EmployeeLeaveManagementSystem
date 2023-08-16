@@ -16,7 +16,7 @@
                                     </div>
                                     <div>
                                         <h4>Leave</h4>
-                                        <h2 class="h1 mb-0">25</h2>
+                                        <h2 class="h1 mb-0">{{ $Leaves }}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                     </div>
                                     <div>
                                         <h4>Approved</h4>
-                                        <h2 class="h1 mb-0">34</h2>
+                                        <h2 class="h1 mb-0">{{ $Approved }}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     </div>
                                     <div>
                                         <h4>Pending</h4>
-                                        <h2 class="h1 mb-0">12</h2>
+                                        <h2 class="h1 mb-0">{{ $Pending }}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                     </div>
                                     <div>
                                         <h4>Canceled</h4>
-                                        <h2 class="h1 mb-0">15</h2>
+                                        <h2 class="h1 mb-0">{{ $Canceled }}</h2>
                                     </div>
                                 </div>
                             </div>

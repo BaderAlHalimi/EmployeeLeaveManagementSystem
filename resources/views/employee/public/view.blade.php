@@ -34,7 +34,7 @@
                                 <tr>
                                     <td>{{ $lvs->name }}</td>
                                     <td>{{ $lvs->pivot->created_at }}</td>
-                                    <td>{{ $lvs->pivot->status }}</td>
+                                    <td><span @class(['badge','bg-danger'=>$lvs->pivot->status=="canceled",'bg-success'=>$lvs->pivot->status=="approved",'bg-secondary'=>$lvs->pivot->status=="pending"])>{{ $lvs->pivot->status }}</span></td>
                                     <td>{{ $lvs->pivot->number_days }}</td>
                                     <td>{{ $lvs->pivot->reason }}</td>
                                 </tr>
