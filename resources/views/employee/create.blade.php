@@ -122,10 +122,9 @@
                                                 <label for="country-floating">Deapartment</label>
                                                 <fieldset class="form-group">
                                                     <select class="form-select" id="basicSelect">
-                                                        <option>IT</option>
-                                                        <option>ENGINEERING</option>
-                                                        <option>HR</option>
-                                                        <option>FINANCE</option>
+                                                        @foreach ($departments as $department)
+                                                            <option value="{{ $department->id }}">{{ $department->short_name }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </fieldset>
                                             </div>

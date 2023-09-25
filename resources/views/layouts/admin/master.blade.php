@@ -93,6 +93,7 @@
     <script src="{{ asset("assets") }}/vendors/apexcharts/apexcharts.min.js"></script>
     <script src="{{ asset("assets") }}/js/pages/dashboard.js"></script>
     <script src="{{ asset("assets") }}/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 

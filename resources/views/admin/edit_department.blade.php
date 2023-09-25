@@ -4,13 +4,13 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Add Department</h3>
+                    <h3>Edit Department</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class='breadcrumb-header'>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html" class="text-success">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Department</li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Department</li>
                         </ol>
                     </nav>
                 </div>
@@ -26,8 +26,9 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
-                                <form action="{{ route('department.store') }}" method="POST" class="form form-vertical">
+                                <form action="{{ route('department.update',['department'=>$department]) }}" method="POST" class="form form-vertical">
                                     @csrf
+                                    @method('put')
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-12">
@@ -35,7 +36,7 @@
                                                     <label for="first-name-icon">Department Short Name</label>
                                                     <div class="position-relative">
                                                         <input type="text" class="form-control"
-                                                            placeholder="Input Department" name="short_name" id="first-name-icon">
+                                                            placeholder="Input Department" value="{{ old('short_name',$department->short_name) }}" name="short_name" id="first-name-icon">
                                                         <div class="form-control-icon">
                                                             <i class="fa fa-table"></i>
                                                         </div>
@@ -47,7 +48,7 @@
                                                     <label for="email-id-icon">Department Name</label>
                                                     <div class="position-relative">
                                                         <input type="text" class="form-control"
-                                                            placeholder="Input Department Name" name="name" id="email-id-icon">
+                                                            placeholder="Input Department Name" name="name" value="{{ old('name',$department->name) }}">
                                                         <div class="form-control-icon">
                                                             <i class="fa fa-table"></i>
                                                         </div>

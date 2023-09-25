@@ -7,7 +7,7 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-item active ">
-                    <a href="index.html" class='sidebar-link'>
+                    <a href="" class='sidebar-link'>
                         <i class="fa fa-home text-success"></i>
                         <span>Dashboard</span>
                     </a>
@@ -36,10 +36,10 @@
                             </a>
                             <ul class="submenu ">
                                 <li>
-                                    <a href="add_department.html">Add Department</a>
+                                    <a href="{{ route('department.create') }}">Add Department</a>
                                 </li>
                                 <li>
-                                    <a href="manage_department.html">Manage Department</a>
+                                    <a href="{{ route('department.index') }}">Manage Department</a>
                                 </li>
                             </ul>
                         </li>

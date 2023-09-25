@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Stream;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,7 +50,8 @@ class UserController extends Controller
     {
         //
         $notifications = Stream::where('user_id',Auth::id())->limit(10)->get();
-        return view('employee.create')->with('notifications',$notifications);
+        $departments = Department::where('user_id',Auth::id())->get();
+        return view('employee.create')->with('notifications',$notifications)->with('departments',$departments);
     }
 
     /**

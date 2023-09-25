@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\ProfileController;
@@ -54,6 +55,9 @@ Route::get('employee/leave/view',[EmployeeController::class,'view'])->name('empl
 
 
 
-Route::get('/add/department', function(){
-    return view('admin.add_department');
-});
+Route::get('/add/department', [DepartmentController::class,'create'])->name('department.create');
+Route::post('/add/department', [DepartmentController::class,'store'])->name('department.store');
+Route::get('/departments', [DepartmentController::class,'index'])->name('department.index');
+Route::get('/edit/{department}/departments', [DepartmentController::class,'edit'])->name('department.edit');
+Route::delete('/departments/{department}', [DepartmentController::class,'destroy'])->name('department.destroy');
+Route::put('/edit/{department}/departments', [DepartmentController::class,'update'])->name('department.update');
