@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Stream;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ class UserController extends Controller
         $num1 = 0;
         $num2 = 0;
         $num3 = 0;
+        $notifications = Stream::where('user_id',Auth::id())->limit(10)->get();
         foreach (Auth::user()->leaves as $leave) {
             $num1 += count($leave->approved);
             $num2 += count($leave->pending);
@@ -36,7 +38,8 @@ class UserController extends Controller
             ->with('Employees', $Employees)
             ->with('Leaves', $Leaves)
             ->with('Pending', $Pending)
-            ->with('Canceled',$Canceled);
+            ->with('Canceled',$Canceled)
+            ->with('notifications',$notifications);
     }
 
     /**
@@ -45,7 +48,8 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('employee.create');
+        $notifications = Stream::where('user_id',Auth::id())->limit(10)->get();
+        return view('employee.create')->with('notifications',$notifications);
     }
 
     /**
@@ -85,7 +89,8 @@ class UserController extends Controller
         $employee = User::where('id', $admin)->first(); //select * from users where id = 8
         // dd($employee);
         if ($employee->admin == Auth::id()) {
-            return view('employee.edit')->with('employee', $employee);
+            $notifications = Stream::where('user_id',Auth::id())->limit(10)->get();
+            return view('employee.edit')->with('employee', $employee)->with('notifications',$notifications);
         } else {
             return redirect()->back();
         }
@@ -126,7 +131,9 @@ class UserController extends Controller
     public function manage()
     {
         $employees = Auth::user()->employees;
-        return view('employee.manage')->with('employees', $employees);
+        $notifications = Stream::where('user_id',Auth::id())->limit(10)->get();
+
+        return view('employee.manage')->with('employees', $employees)->with('notifications',$notifications);
     }
     protected function isAdmin()
     {

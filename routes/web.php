@@ -51,3 +51,9 @@ Route::get('employee',[EmployeeController::class,'index'])->name('employee.index
 Route::get('employee/leave/request',[EmployeeController::class,'create'])->name('employee.leave.create'); 
 Route::post('employee/leave/request',[EmployeeController::class,'store'])->name('employee.leave.store'); 
 Route::get('employee/leave/view',[EmployeeController::class,'view'])->name('employee.leave.view'); 
+
+
+
+Route::get('/add/department', function(){
+    return view('admin.add_department');
+});

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserLeaveAccepted;
+use App\Events\UserLeaveCancelled;
+use App\Models\Stream;
 use App\Models\UserLeave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,18 +25,21 @@ class UserLeaveController extends Controller
                 $i++;
             }
         }
-        return view('leaves.userLeaves.index')->with('users', $users);
+        $notifications = Stream::where('user_id',Auth::id())->limit(10)->get();
+        return view('leaves.userLeaves.index')->with('users', $users)->with('notifications',$notifications);
     }
     public function accept($id)
     {
         $tmp = UserLeave::where('id', $id)->first();
         $tmp->update(['status' => 'approved']);
+        event(new UserLeaveAccepted($tmp));
         return redirect()->back()->with('success', 'accepted');
     }
     public function cancele(Request $request,$id)
     {
         $tmp = UserLeave::where('id', $id)->first();
         $tmp->update(['status' => 'canceled','reason'=>$request->reason]);
+        event(new UserLeaveCancelled($tmp));
         return redirect()->back()->with('success', 'canceled');
     }
     public function accepted()
@@ -50,7 +56,8 @@ class UserLeaveController extends Controller
                 $i++;
             }
         }
-        return view('leaves.userLeaves.index')->with('users', $users);
+        $notifications = Stream::where('user_id',Auth::id())->limit(10)->get();
+        return view('leaves.userLeaves.index')->with('users', $users)->with('notifications',$notifications);
     }
     public function pending()
     {
@@ -65,7 +72,8 @@ class UserLeaveController extends Controller
                 $i++;
             }
         }
-        return view('leaves.userLeaves.index')->with('users', $users);
+        $notifications = Stream::where('user_id',Auth::id())->limit(10)->get();
+        return view('leaves.userLeaves.index')->with('users', $users)->with('notifications',$notifications);
     }
     public function canceled()
     {
@@ -80,6 +88,7 @@ class UserLeaveController extends Controller
                 $i++;
             }
         }
-        return view('leaves.userLeaves.index')->with('users', $users);
+        $notifications = Stream::where('user_id',Auth::id())->limit(10)->get();
+        return view('leaves.userLeaves.index')->with('users', $users)->with('notifications',$notifications);
     }
 }

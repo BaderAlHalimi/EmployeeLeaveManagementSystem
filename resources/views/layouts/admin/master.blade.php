@@ -34,30 +34,24 @@
                             <a href="#" data-bs-toggle="dropdown"
                                 class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
                                 <div class="d-lg-inline-block">
-                                    <i data-feather="bell"></i><span class="badge bg-info">2</span>
+                                    <i data-feather="bell"></i><span class="badge bg-info" id="notifiCount">{{ $notifications->count() }}</span>
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-large">
                                 <h6 class='py-2 px-4'>Notifications</h6>
                                 <ul class="list-group rounded-none">
                                     <li class="list-group-item border-0 align-items-start">
-                                        <div class="row mb-2">
+                                        <div class="row mb-2" id="notifications">
+                                            @foreach ($notifications as $notification)
                                             <div class="col-md-12 notif">
-                                                <a href="leave_details.html">
-                                                    <h6 class='text-bold'>John Doe</h6>
-                                                    <p class='text-xs'>
-                                                        applied for leave at 05-21-2021
+                                                <a href="">
+                                                    <p class='text-dark mb-0 pb-0'>
+                                                        {{ $notification->content }}
                                                     </p>
+                                                    <span class="text-muted">{{ $notification->created_at->diffForHumans() }}</span>
                                                 </a>
                                             </div>
-                                            <div class="col-md-12 notif">
-                                                <a href="leave_details.html">
-                                                    <h6 class='text-bold'>Jane Doe</h6>
-                                                    <p class='text-xs'>
-                                                        applied for leave at 05-21-2021
-                                                    </p>
-                                                </a>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </li>
                                 </ul>
@@ -88,6 +82,10 @@
             @yield('content')
         </div>
     </div>
+    <script>
+        const userId = "{{ Auth::id() }}";
+    </script>
+    @vite(['resources/js/app.js'])
     <script src="{{ asset("assets") }}/js/feather-icons/feather.min.js"></script>
     <script src="{{ asset("assets") }}/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="{{ asset("assets") }}/js/app.js"></script>
@@ -95,6 +93,7 @@
     <script src="{{ asset("assets") }}/vendors/apexcharts/apexcharts.min.js"></script>
     <script src="{{ asset("assets") }}/js/pages/dashboard.js"></script>
     <script src="{{ asset("assets") }}/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

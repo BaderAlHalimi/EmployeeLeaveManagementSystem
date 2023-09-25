@@ -42,7 +42,12 @@
                                     <td>{{ $lvs->name }}</td>
                                     <td>{{ $lvs->leave_name }}</td>
                                     <td>{{ $lvs->pivot->created_at }}</td>
-                                    <td><span @class(['badge','bg-danger'=>$lvs->pivot->status=="canceled",'bg-success'=>$lvs->pivot->status=="approved",'bg-secondary'=>$lvs->pivot->status=="pending"])>{{ $lvs->pivot->status }}</span></td>
+                                    <td><span @class([
+                                        'badge',
+                                        'bg-danger' => $lvs->pivot->status == 'canceled',
+                                        'bg-success' => $lvs->pivot->status == 'approved',
+                                        'bg-secondary' => $lvs->pivot->status == 'pending',
+                                    ])>{{ $lvs->pivot->status }}</span></td>
                                     <td>{{ $lvs->pivot->number_days }}</td>
                                     <td>{{ $lvs->pivot->reason }}</td>
                                     <td>
@@ -58,7 +63,7 @@
                                                 action="{{ route('cancele', ['id' => $lvs->pivot->id]) }}" method="POST"
                                                 class="text-center">
                                                 @csrf
-                                                <textarea name="reason" id="reason" cols="30" rows="3"></textarea><br>
+                                                <textarea name="reason" id="reason" cols="30" rows="3" placeholder="reason!"></textarea><br>
                                                 <button type="submit" class="badge bg-success">submit</button>
                                             </form>
                                         @endif
